@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchviz import make_dot
 
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -48,6 +49,13 @@ class MyNet(nn.Module):
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
+
+    # Plots the Network of the model as 'mnist.png'.
+    def network_visualizer(self, batch):
+        self.eval()
+        yhat = self(batch[0].to( self.device)) # Give dummy batch to forward().
+
+        make_dot(yhat, params=dict(list(self.named_parameters()))).render("mnist", format="png")
 
     def summary(self, size=(1, 28, 28)):
         summary(self, input_size=size)
