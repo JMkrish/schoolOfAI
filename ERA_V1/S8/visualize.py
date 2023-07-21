@@ -1,9 +1,8 @@
 import torch
 import numpy as np
 import itertools
-import matplotlib.pyplot as plt
-
 from collections import Counter
+import matplotlib.pyplot as plt
 
 
 def print_samples(loader, class_map, count=16):
@@ -164,36 +163,32 @@ def plot_network_performance(
     plt.show()
 
 
-# def plot_model_comparison(trainers, epochs):
-#     """Plot comparison charts for models
+def plot_model_comparison(trained_models, epochs=20):
+    """Plot comparison charts for models
 
-#     Args:
-#         trainers (list): List or all trainers for different experiments
-#         epochs (int): Number or training loops
-#     """
-#     plt.figure(figsize=(15, 5))
+    Args:
+        trainers (list): List or all trainers for different experiments
+        epochs (int): Number or training loops
+    """
+    plt.figure(figsize=(15, 5))
 
-#     plt.subplot(1, 2, 1)
-#     plt.plot(range(epochs),
-#              trainers[0].list_valid_loss, 'b', label='BN + L1 loss')
-#     plt.plot(range(epochs), trainers[1].list_valid_loss, 'r', label='GN loss')
-#     plt.plot(range(epochs), trainers[2].list_valid_loss, 'm', label='LN loss')
-#     plt.title('Validation losses')
-#     plt.xlabel('Epochs')
-#     plt.ylabel('Loss')
-#     plt.legend()
+    plt.subplot(1, 2, 1)
+    plt.plot(range(epochs), trained_models[0].test_losses, "b", label="BN loss")
+    plt.plot(range(epochs), trained_models[1].test_losses, "r", label="GN loss")
+    plt.plot(range(epochs), trained_models[2].test_losses, "m", label="LN loss")
+    plt.title("Validation losses")
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.legend()
 
-#     plt.subplot(1, 2, 2)
-#     plt.plot(range(epochs),
-#              trainers[0].list_valid_correct, 'b', label='BN + L1 Accuracy')
-#     plt.plot(range(epochs),
-#              trainers[1].list_valid_correct, 'r', label='GN Accuracy')
-#     plt.plot(range(epochs),
-#              trainers[2].list_valid_correct, 'm', label='LN Accuracy')
-#     plt.title('Validation Accuracies')
-#     plt.xlabel('Epochs')
-#     plt.ylabel('Accuracy')
-#     plt.legend()
+    plt.subplot(1, 2, 2)
+    plt.plot(range(epochs), trained_models[0].test_acc, "b", label="BN Accuracy")
+    plt.plot(range(epochs), trained_models[1].test_acc, "r", label="GN Accuracy")
+    plt.plot(range(epochs), trained_models[2].test_acc, "m", label="LN Accuracy")
+    plt.title("Validation Accuracies")
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.legend()
 
-#     plt.tight_layout()
-#     plt.show()
+    plt.tight_layout()
+    plt.show()

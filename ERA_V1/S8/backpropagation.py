@@ -147,6 +147,21 @@ class ModelTrainPipeline:
             self.scheduler.step()
         print("****************************************************************")
 
+    # Open Neural Network Exchange(ONNX)
+    def save_model_as_onnx(self):
+        image, _ = trainer.train_loader.dataset[0]
+
+        # Add a batch dimension to the input image
+        image = torch.unsqueeze(image, 0)
+
+        torch.onnx.export(
+            self.model,
+            image.to(self.device),
+            f"norm_{self.norm}-lr_{self.lr}-model.onnx",
+            input_names=["image"],
+            output_names=["classes"],
+        )
+
     def print_performance(self, class_map):
         plot_network_performance(
             self.epochs,

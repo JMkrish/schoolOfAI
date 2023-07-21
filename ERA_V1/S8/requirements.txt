@@ -1,6 +1,7 @@
 torch
 torchvision
 matplotlib
+onnx
 tqdm
 torchsummary
 torchviz
