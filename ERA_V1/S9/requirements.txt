@@ -1,0 +1,9 @@
+albumentations
+torch
+torchvision
+matplotlib
+onnx
+tqdm
+torchsummary
+torchviz
+jupyter_black
